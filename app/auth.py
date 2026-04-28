@@ -16,7 +16,9 @@ def github_login():
     state = secrets.token_urlsafe(16)
     session["oauth_state"] = state
     client_id = current_app.config["GITHUB_CLIENT_ID"]
-    redirect_uri = current_app.config["GITHUB_REDIRECT_URI"]
+    # Always redirect to backend callback
+    backend = current_app.config["BACKEND_URL"]
+    redirect_uri = f"{backend}/auth/github/callback"
     return redirect(
         f"https://github.com/login/oauth/authorize"
         f"?client_id={client_id}"
@@ -26,9 +28,11 @@ def github_login():
     )
 
 
-@auth_bp.route("/auth/github/callback")
-def github_callback():
+@auth_bp.route("/auth/callback")
+def auth_callback():
+    # Cookies already set by backend, just go to dashboard
     return redirect(url_for("routes.dashboard"))
+
 
 @auth_bp.route("/logout")
 def logout():
