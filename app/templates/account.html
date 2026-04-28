@@ -1,0 +1,24 @@
+{% extends "base.html" %} {% block content %}
+<div class="card" style="max-width: 500px">
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    "
+  >
+    {% if avatar_url %}
+    <img
+      src="{{ avatar_url }}"
+      style="width: 72px; height: 72px; border-radius: 50%"
+    />
+    {% endif %}
+    <div>
+      <h2>@{{ username }}</h2>
+      <span class="badge badge-{{ role }}">{{ role }}</span>
+    </div>
+  </div>
+  <a href="/logout" class="btn btn-danger">Logout</a>
+</div>
+{% endblock %}

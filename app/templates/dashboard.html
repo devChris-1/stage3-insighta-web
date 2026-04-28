@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block content %}
+<h2 style="margin-bottom: 1.5rem">
+  Welcome, @{{ username }}
+  <span class="badge badge-{{ role }}">{{ role }}</span>
+</h2>
+
+<div class="stat-grid">
+  <div class="stat-card">
+    <div class="number">{{ total }}</div>
+    <div class="label">Total Profiles</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">{{ male }}</div>
+    <div class="label">Male Profiles</div>
+  </div>
+  <div class="stat-card">
+    <div class="number">{{ female }}</div>
+    <div class="label">Female Profiles</div>
+  </div>
+</div>
+
+<div class="card">
+  <h3 style="margin-bottom: 1rem">Quick Actions</h3>
+  <a href="/profiles" class="btn btn-primary" style="margin-right: 0.5rem"
+    >Browse Profiles</a
+  >
+  <a href="/search" class="btn btn-primary">Search Profiles</a>
+</div>
+{% endblock %}

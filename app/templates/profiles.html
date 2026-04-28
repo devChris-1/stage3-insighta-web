@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <form method="GET" action="/profiles">
+        <div class="filters">
+            <input name="gender" placeholder="Gender" value="{{ args.get('gender','') }}">
+            <input name="country_id" placeholder="Country (e.g. NG)" value="{{ args.get('country_id','') }}">
+            <input name="age_group" placeholder="Age Group" value="{{ args.get('age_group','') }}">
+            <input name="min_age" placeholder="Min Age" type="number" value="{{ args.get('min_age','') }}" style="width:100px">
+            <input name="max_age" placeholder="Max Age" type="number" value="{{ args.get('max_age','') }}" style="width:100px">
+            <select name="sort_by">
+                <option value="">Sort By</option>
+                <option value="age" {% if args.get('sort_by')=='age' %}selected{% endif %}>Age</option>
+                <option value="created_at" {% if args.get('sort_by')=='created_at' %}selected{% endif %}>Created At</option>
+                <option value="gender_probability" {% if args.get('sort_by')=='gender_probability' %}selected{% endif %}>Gender Prob.</option>
+            </select>
+            <select name="order">
+                <option value="asc" {% if args.get('order','asc')=='asc' %}selected{% endif %}>Asc</option>
+                <option value="desc" {% if args.get('order')=='desc' %}selected{% endif %}>Desc</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+            <a href="/profiles" class="btn" style="background:#eee;">Reset</a>
+        </div>
+    </form>
+</div>
+
+<div class="card">
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Gender</th><th>Age</th><th>Age Group</th><th>Country</th><th>Action</th></tr>
+        </thead>
+        <tbody>
+            {% for p in data.data %}
+            <tr>
+                <td>{{ p.name }}</td>
+                <td>{{ p.gender }}</td>
+                <td>{{ p.age }}</td>
+                <td>{{ p.age_group }}</td>
+                <td>{{ p.country_id }}</td>
+                <td><a href="/profiles/{{ p.id }}" class="btn btn-sm btn-primary">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination" style="margin-top:1rem;">
+        {% if data.links.prev %}
+            <a href="/profiles?{{ data.links.prev.split('?')[1] }}">← Prev</a>
+        {% endif %}
+        <span style="font-size:0.85rem; color:#888;">Page {{ data.page }} of {{ data.total_pages }}</span>
+        {% if data.links.next %}
+            <a href="/profiles?{{ data.links.next.split('?')[1] }}">Next →</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

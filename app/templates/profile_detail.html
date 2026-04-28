@@ -1,0 +1,52 @@
+{% extends "base.html" %} {% block content %}
+<a href="/profiles" style="color: #888; font-size: 0.9rem"
+  >← Back to Profiles</a
+>
+
+{% if profile %}
+<div class="card" style="margin-top: 1rem">
+  <h2 style="margin-bottom: 1.5rem">{{ profile.name }}</h2>
+  <table style="max-width: 500px">
+    <tr>
+      <th>Field</th>
+      <th>Value</th>
+    </tr>
+    <tr>
+      <td>Gender</td>
+      <td>{{ profile.gender }}</td>
+    </tr>
+    <tr>
+      <td>Gender Probability</td>
+      <td>{{ profile.gender_probability }}</td>
+    </tr>
+    <tr>
+      <td>Age</td>
+      <td>{{ profile.age }}</td>
+    </tr>
+    <tr>
+      <td>Age Group</td>
+      <td>{{ profile.age_group }}</td>
+    </tr>
+    <tr>
+      <td>Country</td>
+      <td>{{ profile.country_id }} – {{ profile.country_name }}</td>
+    </tr>
+    <tr>
+      <td>Country Probability</td>
+      <td>{{ profile.country_probability }}</td>
+    </tr>
+    <tr>
+      <td>Created At</td>
+      <td>{{ profile.created_at }}</td>
+    </tr>
+    <tr>
+      <td>ID</td>
+      <td style="font-size: 0.8rem; color: #888">{{ profile.id }}</td>
+    </tr>
+  </table>
+</div>
+{% else %}
+<div class="card" style="margin-top: 1rem">
+  <p>Profile not found.</p>
+</div>
+{% endif %} {% endblock %}

@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block content %}
+<div class="card">
+  <form method="GET" action="/search">
+    <div class="filters">
+      <input
+        name="q"
+        placeholder="e.g. young males from nigeria"
+        value="{{ q }}"
+        style="width: 400px"
+      />
+      <button type="submit" class="btn btn-primary">Search</button>
+    </div>
+  </form>
+</div>
+
+{% if data %} {% if data.status == 'error' %}
+<div class="card"><p style="color: #e74c3c">{{ data.message }}</p></div>
+{% else %}
+<div class="card">
+  <p style="margin-bottom: 1rem; color: #888">
+    {{ data.total }} result(s) found
+  </p>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Gender</th>
+        <th>Age</th>
+        <th>Age Group</th>
+        <th>Country</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for p in data.data %}
+      <tr>
+        <td>{{ p.name }}</td>
+        <td>{{ p.gender }}</td>
+        <td>{{ p.age }}</td>
+        <td>{{ p.age_group }}</td>
+        <td>{{ p.country_id }}</td>
+        <td>
+          <a href="/profiles/{{ p.id }}" class="btn btn-sm btn-primary">View</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endif %} {% endif %} {% endblock %}
