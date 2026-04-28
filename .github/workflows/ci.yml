@@ -6,7 +6,6 @@ on:
   pull_request:
     branches: [main]
 
-
 jobs:
   lint-and-test:
     runs-on: ubuntu-latest
@@ -36,4 +35,3 @@ jobs:
           GITHUB_CLIENT_SECRET: test-secret
           GITHUB_REDIRECT_URI: http://localhost:5000/auth/github/callback
         run: pytest tests/ -v
-w
